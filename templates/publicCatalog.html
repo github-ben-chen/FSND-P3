@@ -1,0 +1,70 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+
+	<div class="row divider green">
+		<div class="col-md-12"></div>
+	</div>
+	<div class="row banner menu">
+		<div class="col-md-11 col-md-offset-1 padding-none">
+			<h1>{{ category.name }}
+			<figure class="creator">
+				<img src="{{ url_for('static', filename='blank_user.gif') }}">
+				<figcaption>Hi, there!</figcaption>
+			</figure>
+			</h1>
+		</div>
+	</div>
+	<div class="row padding-top padding-bottom">
+		<div class="col-md-1"></div>
+		<div class="col-md-11 padding-none">
+
+		</div>
+		<div class="col-md-7"></div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			{% with messages = get_flashed_messages() %}
+				{% if messages %}
+					<ul>
+						{% for message in messages %}
+							 <li> <strong> {{ message }} </strong> </li>
+						{% endfor %}
+					</ul>
+				{% endif %}
+			{% endwith %}
+		</div>
+	</div>
+	<div id="page">
+			<div id="maincontent">
+					 <h1>Items</h1>
+				{% for item in items %}
+						<a href = "{{url_for('showCatalogItem', category_name = item.category_name, item_name = item.name)}}"> <p>{{item.name}}</p></a>
+				{% endfor %}
+			</div>
+			<div id="categorylist">
+					<ul id="menu">
+							<h1>Categories</h1>
+
+				{% for category in categories %}
+
+				<a href = "{{url_for('showMenu', category_name = category.name)}}"> <p>{{category.name}}</p></a>
+
+				{% endfor %}
+					</ul>
+					<div class="row padding-top padding-bottom">
+						<div class="col-md-1"></div>
+						<div class="col-md-10 padding-none">
+							<a href="{{url_for('newCategory')}}">
+								<button class="btn btn-default" id="new-category">
+									<span class="glyphicon glyphicon-soccer-ball" aria-hidden="true"></span>Add Category
+								</button>
+							</a>
+						</div>
+						<div class="col-md-1"></div>
+					</div>
+			</div>
+			<div id="clearingdiv"></div>
+	</div>
+
+{% endblock %}
